@@ -8,13 +8,13 @@ export class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("cenario", "./assets/oficial/game/cenario_principal.png");
-    this.load.image("pedra", "./assets/oficial/game/pedra_caverna.png");
-    this.load.image("instrucoes", "./assets/oficial/game/instrucoes.png");
-    this.load.image("aviso", "./assets/oficial/game/aviso.png");
+    this.load.image("cenario", "/assets/oficial/game/cenario_principal.png");
+    this.load.image("pedra", "/assets/oficial/game/pedra_caverna.png");
+    this.load.image("instrucoes", "/assets/oficial/game/instrucoes.png");
+    this.load.image("aviso", "/assets/oficial/game/aviso.png");
     this.load.spritesheet(
       "feliciaWalk",
-      "./assets/oficial/game/felicia_walk.png",
+      "/assets/oficial/game/felicia_walk.png",
       {
         frameWidth: 128,
         frameHeight: 128,
@@ -22,7 +22,7 @@ export class GameScene extends Phaser.Scene {
     );
     this.load.spritesheet(
       "feliciaIdle",
-      "./assets/oficial/game/felicia_idle.png",
+      "/assets/oficial/game/felicia_idle.png",
       {
         frameWidth: 128,
         frameHeight: 128,
@@ -30,18 +30,18 @@ export class GameScene extends Phaser.Scene {
     );
     this.load.spritesheet(
       "feliciaJump",
-      "./assets/oficial/game/felicia_jump.png",
+      "/assets/oficial/game/felicia_jump.png",
       {
         frameWidth: 128,
         frameHeight: 128,
       }
     );
-    this.load.spritesheet("dano", "./assets/oficial/game/dano.png", {
+    this.load.spritesheet("dano", "/assets/oficial/game/dano.png", {
       frameWidth: 48,
       frameHeight: 48,
     });
-    this.load.audio("musicaFundo", "./assets/oficial/game/trilha_sonora.mp3");
-    this.load.image("cristal", "./assets/oficial/cristal.png");
+    this.load.audio("musicaFundo", "/assets/oficial/game/trilha_sonora.mp3");
+    this.load.image("cristal", "/assets/oficial/cristal.png");
   }
 
   create() {
