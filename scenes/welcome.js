@@ -7,7 +7,7 @@ export class WelcomeScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("paisagem", "./assets/oficial/menu_bg.png");
+    this.load.image("paisagem", "./oficial/menu_bg.png");
     this.load.image("cristal", "./assets/oficial/cristal.png");
     this.load.image("descricao", "./assets/oficial/descricao.png");
     this.load.image("titulo", "./assets/oficial/cristal_cast.png");
