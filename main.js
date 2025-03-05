@@ -22,7 +22,7 @@ const config = {
     arcade: {
       // Define o valor da gravidade e a visibilidade do colisor
       gravity: { y: 200 },
-      debug: true,
+      debug: false,
     },
   },
   // Organizando as cenas do jogo
