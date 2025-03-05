@@ -7,10 +7,10 @@ export class WelcomeScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("paisagem", "./oficial/menu_bg.png");
-    this.load.image("cristal", "./assets/oficial/cristal.png");
+    this.load.image("paisagem", "./menu_bg.png");
+    this.load.image("cristal", "/assets/oficial/cristal.png");
     this.load.image("descricao", "./assets/oficial/descricao.png");
-    this.load.image("titulo", "./assets/oficial/cristal_cast.png");
+    this.load.image("titulo", "../assets/oficial/cristal_cast.png");
     this.load.image("play", "./assets/oficial/botao_start.png");
     this.load.image("credit", "./assets/oficial/botao_credit.png");
   }
