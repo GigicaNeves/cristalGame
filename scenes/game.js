@@ -78,8 +78,8 @@ export class GameScene extends Phaser.Scene {
     this.player.body.setSize(30, 75, true).setOffset(50, 50); // Configura a dimensão do colisor (tamanho e posição)
 
     // Cria o primeiro obstáculo dentro do array
-    this.pedras[0] = this.physics.add.staticImage(100, 550, "pedra");
-    this.pedras[0].body.setSize(130, 40, true).setOffset(-23, 20); // Configura a dimensão do colisor
+    this.pedras[0] = this.physics.add.staticImage(200, 550, "pedra");
+    this.pedras[0].body.setSize(140, 80, true).setOffset(-40, 0); // Configura a dimensão do colisor
     this.pedras[0].setScale(3);
 
     // Cria o segundo obstáculo dentro do array
