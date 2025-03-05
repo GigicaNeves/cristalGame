@@ -7,10 +7,10 @@ export class CreditScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("paisagemCredit", "assets/oficial/credit_bg.png");
-    this.load.image("menu", "assets/oficial/botao_menu.png");
-    this.load.image("descricaoCredit", "assets/oficial/descricao_credit1.png");
-    this.load.image("referencia", "assets/oficial/descricao_credit2.png");
+    this.load.image("paisagemCredit", "./assets/credit_bg.png");
+    this.load.image("menu", "./assets/botao_menu.png");
+    this.load.image("descricaoCredit", "./assets/descricao_credit1.png");
+    this.load.image("referencia", "./assets/descricao_credit2.png");
   }
 
   create() {
