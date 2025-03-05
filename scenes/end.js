@@ -1,6 +1,6 @@
 export class EndScene extends Phaser.Scene {
   alturaJogo = 600;
-  larguraJogo = 800;
+  larguraJogo = 1000;
 
   constructor() {
     super("EndScene");
@@ -11,33 +11,42 @@ export class EndScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("paisagem", "../assets/paisagem.png");
-    this.load.image("computador", "../assets/computador_paisagem.png");
-    this.load.image("grace", "../assets/grace.png");
-    this.load.image("perdeu", "../assets/perdeu.png");
-    this.load.image("ganhou", "../assets/ganhou.png");
-    this.load.image("menu", "../assets/botao_menu.png");
-    this.load.image("restart", "../assets/botao_restart.png");
+    this.load.image("paisagemEnd", "../assets/oficial/end_bg.png");
+    this.load.spritesheet("npcIdle", "../assets/oficial/npc_idle.png", {
+      frameWidth: 72,
+      frameHeight: 86,
+    });
+    this.load.image("perdeu", "../assets/oficial/descricao_perdeu.png");
+    this.load.image("ganhou", "../assets/oficial/descricao_ganhou.png");
+    this.load.image("menu", "../assets/oficial/botao_menu.png");
+    this.load.image("restart", "../assets/oficial/botao_restart.png");
   }
 
   create() {
-    this.add.image(this.larguraJogo / 2, this.alturaJogo / 2, "computador");
-    this.add.image(this.larguraJogo / 2, 205, "grace").setScale(0.15);
+    this.add
+      .image(this.larguraJogo / 2, this.alturaJogo / 2, "paisagemEnd")
+      .setScale(2)
+      .setAlpha(0.4);
+    this.npc = this.add
+      .sprite(this.larguraJogo / 2, 300, "npcIdle")
+      .setScale(2.5);
     this.botaoMenu = this.add
-      .image(this.larguraJogo / 2 - 100, 320, "menu")
+      .image(this.larguraJogo / 2 - 100, 500, "menu")
       .setScale(0.2)
       .setInteractive();
     this.botaoRestart = this.add
-      .image(this.larguraJogo / 2 + 100, 320, "restart")
+      .image(this.larguraJogo / 2 + 100, 500, "restart")
       .setScale(0.2)
       .setInteractive();
 
     this.botaoMenu.on("pointerover", () => {
       this.input.setDefaultCursor("pointer");
+      this.botaoMenu.setScale(0.23);
     });
 
     this.botaoMenu.on("pointerout", () => {
       this.input.setDefaultCursor("default");
+      this.botaoMenu.setScale(0.2);
     });
 
     this.botaoMenu.on("pointerdown", () => {
@@ -46,10 +55,12 @@ export class EndScene extends Phaser.Scene {
 
     this.botaoRestart.on("pointerover", () => {
       this.input.setDefaultCursor("pointer");
+      this.botaoRestart.setScale(0.23);
     });
 
     this.botaoRestart.on("pointerout", () => {
       this.input.setDefaultCursor("default");
+      this.botaoRestart.setScale(0.2);
     });
 
     this.botaoRestart.on("pointerdown", () => {
@@ -63,7 +74,19 @@ export class EndScene extends Phaser.Scene {
     if (this.resultado === "perdeu") {
       this.add.image(this.larguraJogo / 2, 130, "perdeu").setScale(0.25);
     }
+
+    this.anims.create({
+      key: "parado",
+      frames: this.anims.generateFrameNumbers("npcIdle", {
+        start: 0,
+        end: 3,
+      }),
+      frameRate: 5,
+      repeat: -1,
+    });
   }
 
-  update() {}
+  update() {
+    this.npc.anims.play("parado", true);
+  }
 }

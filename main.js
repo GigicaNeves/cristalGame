@@ -1,10 +1,11 @@
 import { WelcomeScene } from "./scenes/welcome.js";
+import { CreditScene } from "./scenes/credit.js";
 import { GameScene } from "./scenes/game.js";
 import { EndScene } from "./scenes/end.js";
 
 const config = {
   type: Phaser.AUTO,
-  width: 800,
+  width: 1000,
   height: 600,
   backgroundColor: "#040f1c",
   pixelArt: true,
@@ -16,11 +17,11 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 400 },
-      debug: true,
+      gravity: { y: 200 },
+      debug: false,
     },
   },
-  scene: [WelcomeScene, GameScene, EndScene],
+  scene: [WelcomeScene, CreditScene, GameScene, EndScene],
 };
 
 const game = new Phaser.Game(config);

@@ -1,6 +1,6 @@
 export class GameScene extends Phaser.Scene {
   alturaJogo = 600;
-  larguraJogo = 800;
+  larguraJogo = 1000;
   pedras = [];
 
   constructor() {
@@ -10,6 +10,8 @@ export class GameScene extends Phaser.Scene {
   preload() {
     this.load.image("cenario", "../assets/oficial/game/cenario_principal.png");
     this.load.image("pedra", "../assets/oficial/game/pedra_caverna.png");
+    this.load.image("instrucoes", "../assets/oficial/game/instrucoes.png");
+    this.load.image("aviso", "../assets/oficial/game/aviso.png");
     this.load.spritesheet(
       "feliciaWalk",
       "../assets/oficial/game/felicia_walk.png",
@@ -34,7 +36,11 @@ export class GameScene extends Phaser.Scene {
         frameHeight: 128,
       }
     );
-    this.load.audio("musicaFundo", "../assets/musica.mp3");
+    this.load.spritesheet("dano", "../assets/oficial/game/dano.png", {
+      frameWidth: 48,
+      frameHeight: 48,
+    });
+    this.load.audio("musicaFundo", "../assets/oficial/game/trilha_sonora.mp3");
     this.load.image("cristal", "../assets/oficial/cristal.png");
   }
 
@@ -48,10 +54,18 @@ export class GameScene extends Phaser.Scene {
       volume: 0.05,
     });
 
-    this.add
+    this.bg = this.add
       .image(this.larguraJogo / 2, this.alturaJogo / 2, "cenario")
       .setScale(2)
-      .setAlpha(0.5);
+      .setAlpha(0.1);
+
+    this.instruction = this.add
+      .image(this.larguraJogo / 2, 310, "instrucoes")
+      .setScale(0.3);
+
+    this.alert = this.add
+      .image(this.larguraJogo / 2, 130, "aviso")
+      .setScale(0.19);
 
     this.player = this.physics.add
       .sprite(this.larguraJogo / 2, 100, "feliciaJump")
@@ -63,9 +77,14 @@ export class GameScene extends Phaser.Scene {
     this.pedras[0].body.setSize(130, 40, true).setOffset(-23, 20);
     this.pedras[0].setScale(3);
 
-    this.pedras[1] = this.physics.add.staticImage(580, 560, "pedra");
+    this.pedras[1] = this.physics.add.staticImage(720, 580, "pedra");
     this.pedras[1].body.setSize(44, 44, true);
     this.pedras[1].setScale(0.9);
+
+    this.danoVida = this.add
+      .sprite(this.larguraJogo / 2, 100, "dano")
+      .setScale(1);
+    this.danoVida.setVisible(false);
 
     this.cristal = this.physics.add.sprite(this.larguraJogo / 3, 0, "cristal");
     this.cristal.setCollideWorldBounds(true);
@@ -76,11 +95,11 @@ export class GameScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.cristal, () => {
       this.cristal.setVisible(false);
 
-      var posicaocristal_Y = Phaser.Math.RND.between(50, 650);
+      var posicaocristal_Y = Phaser.Math.RND.between(50, 800);
       this.cristal.setPosition(posicaocristal_Y, 100);
 
       this.pontuacao += 1;
-      this.placar.setText("Cristais coletados: " + this.pontuacao);
+      this.placar.setText("Cristais coletados: " + this.pontuacao + "/15");
 
       this.cristal.setVisible(true);
     });
@@ -88,7 +107,7 @@ export class GameScene extends Phaser.Scene {
     this.placar = this.add.text(
       50,
       50,
-      "Cristais coletados: " + this.pontuacao,
+      "Cristais coletados: " + this.pontuacao + "/15",
       {
         fontSize: "30px",
         fill: "#c9d7ea",
@@ -149,6 +168,16 @@ export class GameScene extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
+
+    this.anims.create({
+      key: "tomandoDano",
+      frames: this.anims.generateFrameNumbers("dano", {
+        start: 0,
+        end: 2,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
   }
 
   danoColisaoPedra(player, pedra) {
@@ -156,6 +185,16 @@ export class GameScene extends Phaser.Scene {
 
     this.vida -= 1;
     this.mostrarVida.setText("Vida: " + this.vida);
+
+    // Atualiza a posição da animação de dano e a torna visível
+    this.danoVida.setPosition(player.x, player.y);
+    this.danoVida.setVisible(true);
+    this.danoVida.anims.play("tomandoDano", true);
+
+    // Oculta a animação após um tempo
+    this.time.delayedCall(500, () => {
+      this.danoVida.setVisible(false);
+    });
 
     // Ativa invulnerabilidade temporária para evitar múltiplas perdas de vida
     this.estaInvulneravel = true;
@@ -180,6 +219,19 @@ export class GameScene extends Phaser.Scene {
   }
 
   update() {
+    this.danoVida.setPosition(this.player.x, this.player.y);
+
+    if (
+      this.cursors.left.isDown ||
+      this.cursors.right.isDown ||
+      this.cursors.up.isDown ||
+      this.cursors.down.isDown
+    ) {
+      this.bg.setAlpha(0.5);
+      this.instruction.setVisible(false);
+      this.alert.setVisible(false);
+    }
+
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-160);
       if (this.player.anims.currentAnim?.key !== "esquerda") {
@@ -202,7 +254,7 @@ export class GameScene extends Phaser.Scene {
       }
     }
 
-    if (this.pontuacao >= 5) {
+    if (this.pontuacao >= 15) {
       this.scene.stop("GameScene");
       this.scene.start("EndScene", "ganhou");
     }
