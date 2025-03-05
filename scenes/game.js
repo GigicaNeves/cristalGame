@@ -99,12 +99,14 @@ export class GameScene extends Phaser.Scene {
       {
         fontSize: "30px",
         fill: "#c9d7ea",
+        fontFamily: "Fantasy",
       }
     );
 
     this.mostrarVida = this.add.text(50, 80, "Vida: " + this.vida, {
       fontSize: "30px",
       fill: "#c9d7ea",
+      fontFamily: "Fantasy",
     });
 
     for (let i = 0; i < this.pedras.length; i++) {
