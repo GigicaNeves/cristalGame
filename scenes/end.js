@@ -11,15 +11,15 @@ export class EndScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("paisagemEnd", "../assets/oficial/end_bg.png");
-    this.load.spritesheet("npcIdle", "../assets/oficial/npc_idle.png", {
+    this.load.image("paisagemEnd", "./assets/oficial/end_bg.png");
+    this.load.spritesheet("npcIdle", "./assets/oficial/npc_idle.png", {
       frameWidth: 72,
       frameHeight: 86,
     });
-    this.load.image("perdeu", "../assets/oficial/descricao_perdeu.png");
-    this.load.image("ganhou", "../assets/oficial/descricao_ganhou.png");
-    this.load.image("menu", "../assets/oficial/botao_menu.png");
-    this.load.image("restart", "../assets/oficial/botao_restart.png");
+    this.load.image("perdeu", "./assets/oficial/descricao_perdeu.png");
+    this.load.image("ganhou", "./assets/oficial/descricao_ganhou.png");
+    this.load.image("menu", "./assets/oficial/botao_menu.png");
+    this.load.image("restart", "./assets/oficial/botao_restart.png");
   }
 
   create() {
