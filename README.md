@@ -19,5 +19,6 @@ O jogo se passa no reino de Tão Tão Pertinho. O sábio rei Cherek governou com
    - ⬇ : Acelera a queda;
     
 5. Link da versão jogável (GitHub Pages) <br>
+https://gigicaneves.github.io/cristalGame/
 
 🤴🧛‍♀️⛏️🩸🪨
