@@ -16,6 +16,7 @@ export class GameScene extends Phaser.Scene {
   // Carrega as imagens, sprites e audio
   preload() {
     this.load.image("cenario", "./assets/cenario_principal.png");
+    this.load.image("cenarioMobile", "./assets/end_bg.png");
     this.load.image("pedra", "./assets/pedra_caverna.png");
     this.load.image("instrucoes", "./assets/instrucoes.png");
     this.load.image("aviso", "./assets/aviso.png");
@@ -55,10 +56,28 @@ export class GameScene extends Phaser.Scene {
     });
 
     // Adiciona cenário
-    this.bg = this.add // Armazenando a imagem a uma variável
-      .image(this.larguraJogo / 2, this.alturaJogo / 2, "cenario")
-      .setScale(2) // Dimensionando escala
-      .setAlpha(0.1); // Modificando a opacidade
+    //this.bg = this.add // Armazenando a imagem a uma variável
+    // .image(this.larguraJogo / 2, this.alturaJogo / 2, "cenario")
+    //.setScale(2) // Dimensionando escala
+    //.setAlpha(0.1); // Modificando a opacidade
+
+    if (this.game.device.os.desktop) {
+      this.bg = this.add.image(
+        this.larguraJogo / 2,
+        this.alturaJogo / 2,
+        "cenario"
+      );
+      this.bg.setScale(2); // Dimensionando escala
+      this.bg.setAlpha(0.1); // Modificando a opacidade
+    } else {
+      this.bg = this.add.image(
+        this.larguraJogo / 2,
+        this.alturaJogo / 2,
+        "cenarioMobile"
+      );
+      this.bg.setScale(2.5); // Dimensionando escala
+      this.bg.setAlpha(0.3); // Modificando a opacidade
+    }
 
     // Adiciona instruções
     this.instruction = this.add

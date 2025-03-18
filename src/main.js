@@ -1,4 +1,5 @@
 // Importações das cenas
+import { Loading } from "./scenes/loading.js";
 import { WelcomeScene } from "./scenes/welcome.js";
 import { CreditScene } from "./scenes/credit.js";
 import { GameScene } from "./scenes/game.js";
@@ -26,7 +27,7 @@ const config = {
     },
   },
   // Organizando as cenas do jogo
-  scene: [WelcomeScene, CreditScene, GameScene, EndScene],
+  scene: [Loading, WelcomeScene, CreditScene, GameScene, EndScene],
 };
 
 const game = new Phaser.Game(config);
